@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "writing-collab"
+version = "0.1.0"
+description = "This repository is dedicated to assisting in creating compelling articles using CrewAI and Ollama."
+authors = ["Lau-Gonz <laugonz621@outlook.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.11,<=3.13"
+crewai = "^0.22.5"
+langchain = "^0.1.14"
+crewai-tools = "^0.1.1"
+requests = "^2.31.0"
+bs4 = "^0.0.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
