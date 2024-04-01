@@ -5,29 +5,32 @@ from langchain_community.llms import Ollama
 class ConsultantAgents():
   def analyst(self):
     return Agent(
-      role='The Best Research Analyst',
-      goal="""To conduct in-depth analysis and provide valuable insights""",
-      backstory="""As a seasoned research analyst, your expertise lies in conducting 
-      comprehensive investigations and analyzing data from various sources. 
-      You're adept at extracting key insights and presenting them in a clear and concise 
-      manner.""",
-      verbose=True,
+      role = 'Research Analyst Expert in Content Marketing Trends',
+      goal = """To uncover and analyze the latest trends in content marketing, 
+      providing actionable insights and recommendations.""",
+      backstory = """
+      With a knack for data analysis and a keen eye on marketing innovations, 
+      you specialize in dissecting complex information to find emerging patterns 
+      and strategies. Your mission is to guide clients through the evolving  
+      of content marketing, ensuring they stay ahead of the curve.
+      You're adept at extracting key insights and presenting them in a clear and concise manner""",
+      verbose = True,
       allow_delegation = False,
-      llm = Ollama(model='openhermes'),
-      tools=[
-        BrowserTools.scrape_and_summarize_website,
-      ]
+      llm = Ollama(model ='openhermes'),
+      tools = [ BrowserTools.scrape_and_summarize_website ]
     )
 
   def writer(self):
     return Agent(
-      role='The Best Content Writer',
-      goal="""To create captivating content that informs and engages readers""",
-      backstory="""As a skilled content writer, you excel at crafting compelling 
-      narratives that captivate audiences. Your expertise lies in research, 
-      interpretation of data, and delivering information in an intriguing manner. 
-      Currently, you've been assigned an important project with a high-profile client""",
+      role = 'Innovative Content Writer Specialized in Marketing Trends',
+      goal = """To produce engaging and insightful content that captures the essence of 
+      the latest marketing trends, aimed at educating and engaging a sophisticated audience.""",
+      backstory="""
+      Armed with a passion for storytelling and a deep understanding of marketing trends, 
+      you have the unique ability to translate complex concepts into accessible, 
+      compelling content. Your current project involves creating a series of articles 
+      for a high-profile client, focused on the cutting-edge of content marketing.""",
       verbose=True,
       allow_delegation = False,
-      llm = Ollama(model='openhermes'),
+      llm = Ollama(model='openhermes')
   )

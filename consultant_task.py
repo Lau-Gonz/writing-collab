@@ -1,50 +1,66 @@
+import re
+import requests
+
 from crewai import Task
+from bs4 import BeautifulSoup
 
 class ConsultantTask():
   def research(self, agent):
-    return Task(description="""
-        Conduct a thorough investigation centered around the chosen topic: **Latest Trends
-        In Content Marketing**. Utilize various resources including web pages, news 
-        articles, and other relevant sources to collect pertinent information.
-        
-        Pay close attention to identifying and analyzing keywords within the gathered 
-        data to ensure a comprehensive understanding.
-        
-        The ultimate objective is to provide a succinct overview of the topic: **Latest Trends
-        In Content Marketing** along with the key insights and findings derived from the research.
-        
-        Please ensure that the information gathered is based on the most recent and 
-        up-to-date data available.
-      """,
-      agent=agent,
-      expected_output="""
-        A document summarizing the findings of the research in **Latest Trends
-        In Content Marketing**. The document should relevant data points and a concise overview 
-        of the topic. The information must be current and accurately reflect the latest 
-        trends related to the topic.
-      """
+    url = 'https://www.google.com/search?q=latest+trends+in+content+marketing'
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    links = soup.find_all('a', href=lambda href: href and href.startswith('/url?q=https://'))
+    pages = []
+    for link in links:
+      match = re.search(r'(https://[^&]+)', link['href'])
+      if match and 'google' not in match.group(1):
+        pages.append(match.group(1))
+      if len(pages)==2:
+        break
+    return Task(description = f"""
+      Conduct an in-depth analysis on the Latest Trends In Content Marketing. Dive into recent developments, 
+      focusing on innovations in digital strategies, use of technology in content creation, and standout 
+      marketing campaigns from the last year. Extract key insights, statistical data, and case studies that 
+      highlight the effectiveness of these trends.
+
+      Utilize a wide range of resources such as industry-leading blogs, marketing journals, and interviews pages
+      with thought leaders to ensure a well-rounded view. Your goal is to synthesize this information into 
+      a comprehensive report that outlines:
+
+      - The most impactful content marketing trends.
+      - Case studies or examples of companies implementing these trends effectively.
+      - Data-driven insights that demonstrate the trends’ success or areas for improvement.
+      - Predictions on how these trends might evolve in the next year.
+      Try to use this links:
+      {pages}""",
+      agent = agent,
+      expected_output = """
+      A detailed report on the Latest Trends In Content Marketing, including specific examples, 
+      key statistics, and a forward-looking perspective. The report should be data-rich, 
+      sourced from recent publications, and offer actionable insights for marketing professionals."""
     )
 
   def write(self, agent): 
-    return Task(description=f"""
-        Create an engaging article focusing on the chosen topic: **Latest Trends
-        In Content Marketing**. This includes crafting a captivating title, identifying
-        relevant keywords, and structuring the article with a clear introduction, development 
-        and conclusion. The article should be concise yet informative, designed to capture 
-        and maintain the interest of the readers. Ensure that it provides a unique 
-        perspective on the topic.
-        
-        The final deliverable should be a well-structured article, presented as a 
-        cohesive piece of text without separations for each section.The text presented must be short, 
-        clear and concise. It seeks to attract and conquer the reader, it cannot be extended in text.
-      """,
-      agent=agent,
-      expected_output="""
-        A complete article that adheres to the instructions provided. The article 
-        should have a compelling title, include identified keywords, and be structured 
-        with an introduction, body, and conclusion. It should offer a unique perspective 
-        on the topic **Latest Trends In Content Marketing** and engage readers from start
-        to finish. The article must be presented as a single, cohesive text suitable for publication,
-        presented as a cohesive piece of text without separations for each section.
-      """
+    return Task(description = f"""
+      Craft an engaging and insightful article on the Latest Trends In Content Marketing. Begin with 
+      a compelling introduction that highlights the importance of staying ahead in content marketing. 
+      Proceed to discuss recent trends, incorporating expert opinions, statistical evidence, and 
+      real-life examples to substantiate your points.
+
+      Your article should not only inform but also inspire marketing professionals to explore and 
+      adopt these trends. Conclude with actionable advice or takeaways that readers can implement 
+      in their strategies. Pay special attention to:
+
+      - Creating a captivating title that reflects the essence of the content.
+      - Ensuring the article flows smoothly from introduction to conclusion, without apparent 
+      section breaks, making it a cohesive and engaging read throughout.
+      - Embedding relevant keywords naturally within the text to optimize for search engines.
+
+      Aim for concise yet comprehensive coverage, making every word count to keep the reader engaged.""",
+      agent = agent,
+      expected_output = """
+      A compelling, well-structured article on the Latest Trends In Content Marketing that is 
+      ready for publication. The article should be engaging, informative, and rich with examples 
+      and data, concluding with practical advice for the audience. Ensure the content is SEO-friendly 
+      and embodies a unique perspective on the topic."""
     )

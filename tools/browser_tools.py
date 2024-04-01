@@ -18,16 +18,23 @@ class BrowserTools():
       text = re.sub(r'[^A-Za-z\s]+', '', text)
       text = text.replace('@', '').replace('#', '')
       agent = Agent(
-        role='Principal Researcher',
-        goal= 'Do amazing research and summaries based on **Latest Trends In Content Marketing**',
-        backstory= "You're a Principal Researcher at a big company and you need to do research about a given topic, but focused in **Latest Trends In Content Marketing**.",
+        role = 'Principal Researcher',
+        goal = 'To conduct insightful research and generate summaries on the Latest Trends In Content Marketing',
+        backstory = """You're a Principal Researcher at a prominent company, 
+        tasked with staying ahead of the Latest Trends In Content Marketing.""",
         allow_delegation=False,
         llm = Ollama(model='openhermes'))
       task = Task(
-        agent=agent,
-        description= f'Analyze and summarize the content below, make sure to include the most relevant information in the summary, return only the summary nothing else.\n\nCONTENT\n----------\n{text}',
-        expected_output="A complete summarize."
+        agent = agent,
+        description = f"""
+        Analyze and summarize the content focusing on the most relevant Latest Trends In Content Marketing. 
+        Look for insights on digital strategies, emerging technologies, and case studies of successful content marketing campaigns. 
+        Structure the summary with an introduction, key findings on trends, and a conclusion highlighting the potential impact on the industry.
+        CONTENT
+        ----------
+        {text}""",
+        expected_output ="A complete summarize."
       )
       summary = task.execute()
       return "\n\n" + summary
-    return "The page you are looking for does not exist"
+    return "The page you are looking for does not exist."
