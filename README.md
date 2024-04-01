@@ -21,7 +21,7 @@ For local execution, the project employs Openhermes[^1], an open-source LLM, and
 ollama pull openhermes
 ```
 
-Setting up the execution environment requires Python 3.11[^4] or higher and `poetry`[^3] for dependency management. Once these prerequisites are installed, execute these commands in your terminal:
+Setting up the execution environment requires Python 3.11[^3] or higher and `poetry`[^4] for dependency management. Once these prerequisites are installed, execute these commands in your terminal:
 
 ```bash
 poetry env use python3.11
@@ -29,7 +29,7 @@ poetry install
 poetry shell
 ```
 
-### Main Dependencies
+## Main Dependencies
 
 - **crewai**: For automating the creation and management of agents and tasks.
 - **BeautifulSoup**: For parsing and analyzing HTML documents.
@@ -45,7 +45,7 @@ python main.py
 
 ## References
 
-- [^1]: [Openhermes on Huggingface](https://huggingface.co/teknium/OpenHermes-2.5-Mistral-7B)
-- [^2]: [Ollama GitHub Repository](https://github.com/ollama/ollama)
-- [^4]: [Poetry Installation Guide](https://python-poetry.org/docs/)
-- [^3]: [Python Official Versions](https://www.python.org/doc/versions/)
+[^1]: [Openhermes on Huggingface](https://huggingface.co/teknium/OpenHermes-2.5-Mistral-7B)
+[^2]: [Ollama GitHub Repository](https://github.com/ollama/ollama)
+[^4]: [Poetry Installation Guide](https://python-poetry.org/docs/)
+[^3]: [Python Official Versions](https://www.python.org/doc/versions/)
