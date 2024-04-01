@@ -62,5 +62,6 @@ class ConsultantTask():
       A compelling, well-structured article on the Latest Trends In Content Marketing that is 
       ready for publication. The article should be engaging, informative, and rich with examples 
       and data, concluding with practical advice for the audience. Ensure the content is SEO-friendly 
-      and embodies a unique perspective on the topic."""
+      and embodies a unique perspective on the topic.It should be a short article, less than 500 words, 
+      do not include the word count."""
     )

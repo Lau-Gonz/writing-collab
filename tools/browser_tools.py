@@ -8,9 +8,9 @@ from bs4 import BeautifulSoup
 
 class BrowserTools():
   @tool
-  def scrape_and_summarize_website(website):
+  def scrape_and_summarize_website(url):
     """Useful to scrape and summarize a website content"""
-    response = requests.get(website)
+    response = requests.get(url)
     if response.status_code == 200:
       soup = BeautifulSoup(response.content, 'html.parser')
       text = soup.get_text()
